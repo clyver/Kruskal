@@ -16,6 +16,8 @@ edges = graph.get_edges()
 sorted_edges = graph.sort_edges()
 kruskal = graph.kruskal()
 len_kruskal = len(kruskal)
-print "all edges: " , edges
+print "all edges:   ", edges
+print ""
 print "sorted edges:", sorted_edges
-print "kruskal:", kruskal
+print ""
+print "kruskal:     ", kruskal

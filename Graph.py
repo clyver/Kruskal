@@ -14,6 +14,7 @@ class Graph():
     def get_edges(self):
         """
         Get all the edges in the graph without duplicates
+        ex. we don't want [ (('A', 'B'), 1), (('B', 'A'), 1)) ]
         """
         all_edges = []
 
@@ -35,29 +36,39 @@ class Graph():
         return all_edges
 
     def sort_edges(self):
+        # The edges of the graph sorted by their weights
         edges = self.get_edges()
         edges.sort(key=lambda x: x[1])
         return edges
 
     def size(self):
+        # The number of nodes in the graph
         return len(self.nodes)
 
     def kruskal(self):
 
         edges = self.sort_edges()
         graph_size = self.size()
-        visited = set()
+        visited_nodes = set()
         # Minimum Spanning Tree
         mst = []
-        i = 0
-        while len(mst) != graph_size-1:
-            edge = edges[i]
-            creates_loop = edge[0].issubset(visited)
 
+        i = 0
+        # We stop when we take in N-1 edges
+        while len(mst) != graph_size-1:
+
+            # Iterate through all the edges
+            edge = edges[i]
+
+            # Determine if the current edge creates a loop
+            creates_loop = edge[0].issubset(visited_nodes)
+
+            # If this edge doesn't create a loop, we accept it
             if not creates_loop:
                 mst.append(edge)
-                visited = (visited | edge[0])
+                visited_nodes = (visited_nodes | edge[0])
                 i += 1
+            # If it doesn't, we increment i and move on to the next edge
             else:
                 i += 1
         return mst
